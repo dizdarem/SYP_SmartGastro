@@ -12,6 +12,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         System.out.println("hello");
         System.out.println("hello2");
-        System.out.println("Verzweifeln.exe");
+        System.out.println("Verzweifeln.exe stopped working");
     }
 }
