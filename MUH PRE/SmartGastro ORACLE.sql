@@ -89,7 +89,6 @@ insert into produkt VALUES (16,'Orange Pago 0.5 l', 3.90,'getraenk');
 insert into produkt VALUES (17,'Villacher Bier 0.5 l', 3.90,'getraenk');
 
 
-insert into produkt VALUES (17,'Schnitzel Schwein', 6.90,'gericht');
 insert into produkt VALUES (18,'Schnitzel Pute', 7.90,'gericht');
 insert into produkt VALUES (19,'Schnitzel Kids Pute mit Pommes', 4.90,'gericht');
 insert into produkt VALUES (20,'Spaghetti Bolognese 100% Rind', 8.50,'gericht');
@@ -159,21 +158,21 @@ insert into besteht_aus VALUES(8,3,37);
 
 commit;
 
-select idBestellung,idTisch,to_char(zeitstempel,'dd.mm.yyyy hh24.mi'),idPosten,idProdukt,bezeichnung,preis,typ from besteht_aus
+select idTisch,idTablet,to_char(zeitstempel,'dd.mm.yyyy hh24.mi'),bezeichnung,preis,typ from besteht_aus
 inner join bestellung on besteht_aus.idBestellung = bestellung.id
 inner join produkt on besteht_aus.idProdukt = produkt.id
-order by idBestellung, idPosten;
+order by idTablet;
 
-select idBestellung,idTisch,to_char(zeitstempel,'dd.mm.yyyy hh24.mi'),bezeichnung,preis,typ from besteht_aus
+select idTisch,idTablet,to_char(zeitstempel,'dd.mm.yyyy hh24.mi'),bezeichnung,preis,typ from besteht_aus
 inner join bestellung on besteht_aus.idBestellung = bestellung.id
 inner join produkt on besteht_aus.idProdukt = produkt.id
 where produkt.typ = 'gericht' or produkt.typ = 'beilage' or produkt.typ = 'dessert'
-order by idBestellung, idPosten;
+order by idTablet;
 
-select idBestellung,idTisch,to_char(zeitstempel,'dd.mm.yyyy hh24.mi'),bezeichnung,preis,typ from besteht_aus
+select idTisch,idTablet,to_char(zeitstempel,'dd.mm.yyyy hh24.mi'),bezeichnung,preis,typ from besteht_aus
 inner join bestellung on besteht_aus.idBestellung = bestellung.id
 inner join produkt on besteht_aus.idProdukt = produkt.id
 where produkt.typ = 'getraenk'
-order by idBestellung, idPosten;
+order by idTablet;
 
 
