@@ -1,37 +1,49 @@
 package at.htl_villach.android_app.app;
 
+import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 
 import java.util.ArrayList;
 
-import android.app.AlertDialog;
-
+import androidx.appcompat.app.AppCompatActivity;
 import at.htl_villach.android_app.R;
 import at.htl_villach.android_app.bll.Produkt;
-import at.htl_villach.android_app.bll.typ;
+import at.htl_villach.android_app.dal.DatabaseManager;
 
 import static android.widget.Toast.LENGTH_SHORT;
 import static android.widget.Toast.makeText;
-import androidx.appcompat.app.AppCompatActivity;
 
 
 public class GetraenkeActivity extends AppCompatActivity {
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_getraenke);
+
         ListView lv_Getraenke = findViewById(R.id.lv_getraenke);
+        DatabaseManager db = DatabaseManager.newInstance();
+        Button btnreturn = findViewById(R.id.btn_return);
+
 
         ArrayList<Produkt> list = new ArrayList<Produkt>();
-        list.add(new Produkt(1,"Coca Cola", 2.50, typ.GETRAENK));
-        list.add(new Produkt(2,"Fanta", 2.50, typ.GETRAENK));
-        list.add(new Produkt(3,"Sprite", 2.50, typ.GETRAENK));
+        /*list.add(new Produkt(1,"Coca Cola", 2.50, typ.GETRAENK));
+        list.add(new Produkt(2,"Cola Zero", 2.50, typ.GETRAENK));
+        list.add(new Produkt(3,"Red Bull Energy", 3.90, typ.GETRAENK));
+        list.add(new Produkt(4,"Latte Macchiato", 3.20, typ.GETRAENK));
+        list.add(new Produkt(5,"Tee", 2.20, typ.GETRAENK));*/
+        try{
+        list = db.getAllGetraenke();
+        }
+        catch (Exception ex){
+            System.out.println("error in GETAllGetraenke from db");
+        }
         ArrayAdapter<Produkt> arrayAdapter = new ArrayAdapter<Produkt>(this,android.R.layout.simple_list_item_1,list);
         lv_Getraenke.setAdapter(arrayAdapter);
 
@@ -54,6 +66,14 @@ public class GetraenkeActivity extends AppCompatActivity {
                 });
                 AlertDialog alertDialog = dialogbuilder.create();
                 alertDialog.show();
+            }
+        });
+
+        btnreturn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent return2Home = new Intent(GetraenkeActivity.this, MainActivity.class);
+                startActivity(return2Home);
             }
         });
     }

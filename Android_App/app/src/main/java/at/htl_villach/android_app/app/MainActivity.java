@@ -1,13 +1,12 @@
 package at.htl_villach.android_app.app;
 
-import androidx.appcompat.app.AppCompatActivity;
-import at.htl_villach.android_app.R;
-
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+
+import androidx.appcompat.app.AppCompatActivity;
+import at.htl_villach.android_app.R;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -24,9 +23,34 @@ public class MainActivity extends AppCompatActivity {
         btnGetraenke.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, GetraenkeActivity.class);
-                startActivity(intent);
+                Intent go2Getraenke = new Intent(MainActivity.this, GetraenkeActivity.class);
+                startActivity(go2Getraenke);
             }
         });
+
+        btnSpeisen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent go2Speisen = new Intent(MainActivity.this, GetraenkeActivity.class);
+                startActivity(go2Speisen);
+            }
+        });
+
+        btnBeilagen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent go2Beilagen = new Intent(MainActivity.this, GetraenkeActivity.class);
+                startActivity(go2Beilagen);
+            }
+        });
+
+        btnDesserts.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent go2Desserts = new Intent(MainActivity.this, GetraenkeActivity.class);
+                startActivity(go2Desserts);
+            }
+        });
+
     }
 }
