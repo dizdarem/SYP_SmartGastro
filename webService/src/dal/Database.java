@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 
 import bll.BestellungProdukt;
-import bll.Gericht;
+import bll.Produkt;
 import bll.BestellungGruppiert;
 import bll.Posten;
 import bll.ProduktTyp;
@@ -52,20 +52,36 @@ public class Database {
 		}
 	}
 
-	public ArrayList<Gericht> getGerichte() {
-		ArrayList<Gericht> gerichte = new ArrayList<Gericht>();
+	public ArrayList<Produkt> getProdukte() {
+		ArrayList<Produkt> produkte = new ArrayList<Produkt>();
 		try {
 			openConnection();
 
 			Statement stmt = con.createStatement();
-			ResultSet rs = stmt.executeQuery("select * from gericht");
+			ResultSet rs = stmt.executeQuery("select * from produkt");
 			while (rs.next())
-				gerichte.add(new Gericht(rs.getInt(1), rs.getString(2), rs.getDouble(3)));
+				produkte.add(new Produkt(rs.getInt(1), rs.getString(2), rs.getDouble(3), ProduktTyp.valueOf(rs.getString(4))));
 			con.close();
 		} catch (Exception e) {
 			System.out.println(e);
 		}
-		return gerichte;
+		return produkte;
+	}
+	
+	public ArrayList<Produkt> getProdukteByTyp(String typ) {
+		ArrayList<Produkt> produkte = new ArrayList<Produkt>();
+		try {
+			openConnection();
+
+			Statement stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery("select * from produkt WHERE typ LIKE '" + typ + "'");
+			while (rs.next())
+				produkte.add(new Produkt(rs.getInt(1), rs.getString(2), rs.getDouble(3), ProduktTyp.valueOf(rs.getString(4))));
+			con.close();
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		return produkte;
 	}
 
 	public ArrayList<BestellungProdukt> getBestellungProduktD() {
