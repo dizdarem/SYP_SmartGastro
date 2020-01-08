@@ -10,7 +10,7 @@ public class Gericht {
 		this.bezeichnung = bezeichnung;
 		this.preis = preis;
 	}
-	
+	//TESTCHANGE
 	public int getId() {
 		return id;
 	}
