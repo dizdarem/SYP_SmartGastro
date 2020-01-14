@@ -12,7 +12,7 @@ import at.htl_villach.android_app.services.ServiceProduktGetGetraenke;
 
 public class DatabaseManager {
     private static DatabaseManager db = null;
-    private static String ipHost = "http://192.168.192.164:8080";
+    private static String ipHost = "http://192.168.196.36:8080";
 
     private DatabaseManager() {
     }
