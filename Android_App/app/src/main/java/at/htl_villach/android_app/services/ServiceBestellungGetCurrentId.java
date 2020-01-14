@@ -7,12 +7,12 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class ServiceProduktGetBeilagen extends AsyncTask<String, Void, String> {
-    private static final String URL = "/RestaurantVerwaltung_WebService/SmartGastro/produkte/get/beilage";
+public class ServiceBestellungGetCurrentId extends AsyncTask<String, Void, String> {
+    private static final String URL = "/RestaurantVerwaltung_WebService/SmartGastro/bestellungen/get/currentId";
     private static String ipHost = null;
 
     public static void setIpHost(String ipHost) {
-        ServiceProduktGetBeilagen.ipHost = ipHost;
+        ServiceBestellungGetCurrentId.ipHost = ipHost;
     }
 
     @Override

@@ -4,9 +4,9 @@
     android:layout_height="match_parent">
 
     <ListView
-        android:id="@+id/lv_beilagen"
-        android:layout_width="679dp"
-        android:layout_height="317dp"
+        android:id="@+id/lv_warenkorb"
+        android:layout_width="659dp"
+        android:layout_height="265dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_centerVertical="true"
@@ -21,7 +21,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginStart="37dp"
         android:layout_marginTop="16dp"
-        android:text="Beilagen"
+        android:text="Warenkorb"
         android:textColor="#00BCD4"
         android:textSize="24sp" />
 
@@ -35,5 +35,15 @@
         android:layout_marginEnd="31dp"
         android:background="?attr/actionModeCloseDrawable"
         android:backgroundTint="#00BCD4" />
+
+    <Button
+        android:id="@+id/btn_confirmCart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="43dp"
+        android:layout_marginBottom="23dp"
+        android:text="Abschicken" />
 
 </RelativeLayout>

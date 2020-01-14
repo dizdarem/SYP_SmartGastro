@@ -24,7 +24,7 @@ import static android.widget.Toast.LENGTH_SHORT;
 import static android.widget.Toast.makeText;
 
 
-public class GetraenkeActivity extends AppCompatActivity {
+public class DessertActivity extends AppCompatActivity {
 
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -42,7 +42,7 @@ public class GetraenkeActivity extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         switch (id) {
             case R.id.showWarenkorb:
-                Intent intent = new Intent(GetraenkeActivity.this, WarenkorbActivity.class);
+                Intent intent = new Intent(DessertActivity.this, WarenkorbActivity.class);
                 startActivity(intent);
                 break;
         }
@@ -52,40 +52,35 @@ public class GetraenkeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_getraenke);
+        setContentView(R.layout.activity_desserts);
 
-        final ListView lv_Getraenke = findViewById(R.id.lv_getraenke);
+        ListView lv_Speisen = findViewById(R.id.lv_desserts);
         DatabaseManager db = DatabaseManager.newInstance();
         Button btnreturn = findViewById(R.id.btn_return);
 
         ArrayList<Produkt> list = new ArrayList<Produkt>();
-        /*list.add(new Produkt(1,"Coca Cola", 2.50, typ.GETRAENK));
-        list.add(new Produkt(2,"Cola Zero", 2.50, typ.GETRAENK));
-        list.add(new Produkt(3,"Red Bull Energy", 3.90, typ.GETRAENK));
-        list.add(new Produkt(4,"Latte Macchiato", 3.20, typ.GETRAENK));
-        list.add(new Produkt(5,"Tee", 2.20, typ.GETRAENK));*/
         try{
         list = db.getAllGetraenke();
         System.out.println(list.get(0));
         }
         catch (Exception ex){
-            System.out.println("-----------------------------------error in GETAllGetraenke from db");
+            System.out.println("-----------------------------------error in GETAllDesserts from db");
             ex.printStackTrace();
         }
         ArrayAdapter<Produkt> arrayAdapter = new ArrayAdapter<Produkt>(this,android.R.layout.simple_list_item_1,list);
-        lv_Getraenke.setAdapter(arrayAdapter);
+        lv_Speisen.setAdapter(arrayAdapter);
 
-        lv_Getraenke.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        lv_Speisen.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
-                AlertDialog.Builder dialogbuilder = new AlertDialog.Builder(GetraenkeActivity.this);
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                AlertDialog.Builder dialogbuilder = new AlertDialog.Builder(DessertActivity.this);
                 dialogbuilder.setTitle("Zum Warenkorb hinzufügen?");
                 dialogbuilder.setPositiveButton("Ja", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Warenkorb.warenkorb.add((Produkt) lv_Getraenke.getItemAtPosition(position));
                         dialog.cancel();
-                        makeText(GetraenkeActivity.this, "Added to Cart", LENGTH_SHORT).show();
+
+                        makeText(DessertActivity.this, "Added to Cart", LENGTH_SHORT).show();
                     }
                 }).setNegativeButton("Nein", new DialogInterface.OnClickListener() {
                     @Override
@@ -101,7 +96,7 @@ public class GetraenkeActivity extends AppCompatActivity {
         btnreturn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent return2Home = new Intent(GetraenkeActivity.this, MainActivity.class);
+                Intent return2Home = new Intent(DessertActivity.this, MainActivity.class);
                 startActivity(return2Home);
             }
         });

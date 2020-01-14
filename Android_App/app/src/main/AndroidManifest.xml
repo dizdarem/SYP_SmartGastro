@@ -27,6 +27,18 @@
         <activity android:name=".app.GetraenkeActivity"
             android:screenOrientation="landscape">
         </activity>
+        <activity android:name=".app.BeilageActivity"
+            android:screenOrientation="landscape">
+        </activity>
+        <activity android:name=".app.DessertActivity"
+            android:screenOrientation="landscape">
+        </activity>
+        <activity android:name=".app.SpeiseActivity"
+            android:screenOrientation="landscape">
+        </activity>
+        <activity android:name=".app.WarenkorbActivity"
+            android:screenOrientation="landscape">
+        </activity>
     </application>
 
 </manifest>

@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import androidx.appcompat.app.AppCompatActivity;
 import at.htl_villach.android_app.R;
 import at.htl_villach.android_app.bll.Produkt;
+import at.htl_villach.android_app.bll.Warenkorb;
 import at.htl_villach.android_app.dal.DatabaseManager;
 
 import static android.widget.Toast.LENGTH_SHORT;
@@ -41,7 +42,7 @@ public class SpeiseActivity extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         switch (id) {
             case R.id.showWarenkorb:
-                Intent intent = new Intent(SpeiseActivity.this, MainActivity.class);
+                Intent intent = new Intent(SpeiseActivity.this, WarenkorbActivity.class);
                 startActivity(intent);
                 break;
         }
@@ -53,7 +54,7 @@ public class SpeiseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_speisen);
 
-        ListView lv_Speisen = findViewById(R.id.lv);
+        final ListView lv_Speisen = findViewById(R.id.lv_speisen);
         DatabaseManager db = DatabaseManager.newInstance();
         Button btnreturn = findViewById(R.id.btn_return);
 
@@ -71,12 +72,13 @@ public class SpeiseActivity extends AppCompatActivity {
 
         lv_Speisen.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
                 AlertDialog.Builder dialogbuilder = new AlertDialog.Builder(SpeiseActivity.this);
                 dialogbuilder.setTitle("Zum Warenkorb hinzufügen?");
                 dialogbuilder.setPositiveButton("Ja", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        Warenkorb.warenkorb.add((Produkt) lv_Speisen.getItemAtPosition(position));
                         dialog.cancel();
 
                         makeText(SpeiseActivity.this, "Added to Cart", LENGTH_SHORT).show();
