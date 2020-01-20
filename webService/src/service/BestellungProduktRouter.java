@@ -20,7 +20,6 @@ public class BestellungProduktRouter {
     public BestellungProduktRouter() {
     }
 
-    // Return the list of books for applications & browser
     @GET
     @Path("/drinks")
     @Produces({MediaType.APPLICATION_JSON})
@@ -33,7 +32,7 @@ public class BestellungProduktRouter {
             response.status(Response.Status.BAD_REQUEST);
             response.entity("[ERROR] " + e.getMessage());
         }
-        System.out.println("======================webservice GET called");
+        System.out.println("get drinks Bestellung Produkt called");
         return response.build();
     }
     @GET
@@ -48,7 +47,7 @@ public class BestellungProduktRouter {
             response.status(Response.Status.BAD_REQUEST);
             response.entity("[ERROR] " + e.getMessage());
         }
-        System.out.println("======================webservice GET called");
+        System.out.println("get meals Bestellung Produkt called");
         return response.build();
     }
 }

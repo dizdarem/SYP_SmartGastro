@@ -6,16 +6,26 @@ public class Posten {
 	private String produktbezeichnung;
 	private double preis;
 	private ProduktTyp typ;
+	private Boolean gebracht;
 	
-	public Posten(int idPosten, int idProdukt, String produktbezeichnung, double preis, ProduktTyp typ) {
+	public Posten(int idPosten, int idProdukt, String produktbezeichnung, double preis, ProduktTyp typ, Boolean gebracht) {
 		super();
 		this.idPosten = idPosten;
 		this.idProdukt = idProdukt;
 		this.produktbezeichnung = produktbezeichnung;
 		this.preis = preis;
 		this.typ = typ;
+		this.gebracht = gebracht;
 	}
 	
+	public Boolean getGebracht() {
+		return gebracht;
+	}
+
+	public void setGebracht(Boolean gebracht) {
+		this.gebracht = gebracht;
+	}
+
 	public int getIdPosten() {
 		return idPosten;
 	}

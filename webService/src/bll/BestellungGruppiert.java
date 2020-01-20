@@ -6,16 +6,37 @@ public class BestellungGruppiert {
 	private int bestellungId;
 	private int tischId;
 	private Timestamp bestellZeit;
+	private double gesamtPreis;
+	
+	private Boolean bezahlt;
 	private ArrayList<Posten> arrPosten;
 	
-	public BestellungGruppiert(int bestellungId, int tischId, Timestamp zeit, ArrayList<Posten> arrPosten) {
+	public BestellungGruppiert(int bestellungId, int tischId, Timestamp zeit, double gesamtPreis, Boolean bezahlt, ArrayList<Posten> arrPosten) {
 		super();
 		this.bestellungId = bestellungId;
 		this.tischId = tischId;
 		this.bestellZeit = zeit;
+		this.gesamtPreis = gesamtPreis;
+		this.bezahlt = bezahlt;
 		this.arrPosten = arrPosten;
 	}
 	
+	public double getGesamtPreis() {
+		return gesamtPreis;
+	}
+
+	public void setGesamtPreis(double gesamtPreis) {
+		this.gesamtPreis = gesamtPreis;
+	}
+
+	public Boolean getBezahlt() {
+		return bezahlt;
+	}
+
+	public void setBezahlt(Boolean bezahlt) {
+		this.bezahlt = bezahlt;
+	}
+
 	public int getTischId() {
 		return tischId;
 	}

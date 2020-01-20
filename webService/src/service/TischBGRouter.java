@@ -32,7 +32,7 @@ public class TischBGRouter {
             response.status(Response.Status.BAD_REQUEST);
             response.entity("[ERROR] " + e.getMessage());
         }
-        System.out.println("======================webservice GET called");
+        System.out.println("get drinks Tisch Gruppiert called");
         return response.build();
     }
     @GET
@@ -47,7 +47,7 @@ public class TischBGRouter {
             response.status(Response.Status.BAD_REQUEST);
             response.entity("[ERROR] " + e.getMessage());
         }
-        System.out.println("======================webservice GET called");
+        System.out.println("get meals Tisch Gruppiert called");
         return response.build();
     }
 }
