@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
         btnSpeisen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent go2Speisen = new Intent(MainActivity.this, GetraenkeActivity.class);
+                Intent go2Speisen = new Intent(MainActivity.this, SpeiseActivity.class);
                 startActivity(go2Speisen);
             }
         });
@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
         btnBeilagen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent go2Beilagen = new Intent(MainActivity.this, GetraenkeActivity.class);
+                Intent go2Beilagen = new Intent(MainActivity.this, BeilageActivity.class);
                 startActivity(go2Beilagen);
             }
         });
@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
         btnDesserts.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent go2Desserts = new Intent(MainActivity.this, GetraenkeActivity.class);
+                Intent go2Desserts = new Intent(MainActivity.this, DessertActivity.class);
                 startActivity(go2Desserts);
             }
         });

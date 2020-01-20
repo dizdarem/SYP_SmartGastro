@@ -25,6 +25,11 @@ import static android.widget.Toast.makeText;
 
 
 public class SpeiseActivity extends AppCompatActivity {
+    ListView lv_Speisen;
+    DatabaseManager db;
+    Button btnreturn;
+    ArrayList<Produkt> list_Speisen = null;
+    private int currentTisch;
 
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -54,20 +59,21 @@ public class SpeiseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_speisen);
 
-        final ListView lv_Speisen = findViewById(R.id.lv_speisen);
-        DatabaseManager db = DatabaseManager.newInstance();
-        Button btnreturn = findViewById(R.id.btn_return);
+        lv_Speisen = findViewById(R.id.lv_speisen);
+        db = DatabaseManager.newInstance();
+        btnreturn = findViewById(R.id.btn_return);
+        list_Speisen = new ArrayList<Produkt>();
 
-        ArrayList<Produkt> list = new ArrayList<Produkt>();
         try{
-        list = db.getAllGetraenke();
-        System.out.println(list.get(0));
+            list_Speisen = db.getAllSpeisen();
+            System.out.println(list_Speisen.get(0));
         }
         catch (Exception ex){
             System.out.println("-----------------------------------error in GETAllSpeisen from db");
             ex.printStackTrace();
         }
-        ArrayAdapter<Produkt> arrayAdapter = new ArrayAdapter<Produkt>(this,android.R.layout.simple_list_item_1,list);
+
+        ArrayAdapter<Produkt> arrayAdapter = new ArrayAdapter<Produkt>(this,android.R.layout.simple_list_item_1,list_Speisen);
         lv_Speisen.setAdapter(arrayAdapter);
 
         lv_Speisen.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -81,7 +87,7 @@ public class SpeiseActivity extends AppCompatActivity {
                         Warenkorb.warenkorb.add((Produkt) lv_Speisen.getItemAtPosition(position));
                         dialog.cancel();
 
-                        makeText(SpeiseActivity.this, "Added to Cart", LENGTH_SHORT).show();
+                        makeText(SpeiseActivity.this, "Zu Warenkorb hinzugefügt", LENGTH_SHORT).show();
                     }
                 }).setNegativeButton("Nein", new DialogInterface.OnClickListener() {
                     @Override

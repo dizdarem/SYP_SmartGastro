@@ -54,13 +54,13 @@ public class DessertActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_desserts);
 
-        ListView lv_Speisen = findViewById(R.id.lv_desserts);
+        final ListView lv_Desserts = findViewById(R.id.lv_desserts);
         DatabaseManager db = DatabaseManager.newInstance();
         Button btnreturn = findViewById(R.id.btn_return);
 
         ArrayList<Produkt> list = new ArrayList<Produkt>();
         try{
-        list = db.getAllGetraenke();
+        list = db.getAllDesserts();
         System.out.println(list.get(0));
         }
         catch (Exception ex){
@@ -68,19 +68,19 @@ public class DessertActivity extends AppCompatActivity {
             ex.printStackTrace();
         }
         ArrayAdapter<Produkt> arrayAdapter = new ArrayAdapter<Produkt>(this,android.R.layout.simple_list_item_1,list);
-        lv_Speisen.setAdapter(arrayAdapter);
+        lv_Desserts.setAdapter(arrayAdapter);
 
-        lv_Speisen.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        lv_Desserts.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
                 AlertDialog.Builder dialogbuilder = new AlertDialog.Builder(DessertActivity.this);
                 dialogbuilder.setTitle("Zum Warenkorb hinzufügen?");
                 dialogbuilder.setPositiveButton("Ja", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        Warenkorb.warenkorb.add((Produkt) lv_Desserts.getItemAtPosition(position));
                         dialog.cancel();
-
-                        makeText(DessertActivity.this, "Added to Cart", LENGTH_SHORT).show();
+                        makeText(DessertActivity.this, "Zu Warenkorb hinzugefügt", LENGTH_SHORT).show();
                     }
                 }).setNegativeButton("Nein", new DialogInterface.OnClickListener() {
                     @Override

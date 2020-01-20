@@ -16,7 +16,7 @@ import java.net.ProtocolException;
 import at.htl_villach.android_app.bll.Bestellung;
 
 public class ServiceBestellungPost extends AsyncTask<String, Void, String> {
-    private static final String URL = "/RestaurantVerwaltung_WebService/SmartGastro/produkte/get/beilage";
+    private static final String URL = "/RestaurantVerwaltung_WebService/SmartGastro/Bestellung";
     private static String ipHost = null;
     private Bestellung bestellung = null;
     private int id = 0;

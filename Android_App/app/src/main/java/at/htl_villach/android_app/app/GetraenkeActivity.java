@@ -57,13 +57,8 @@ public class GetraenkeActivity extends AppCompatActivity {
         final ListView lv_Getraenke = findViewById(R.id.lv_getraenke);
         DatabaseManager db = DatabaseManager.newInstance();
         Button btnreturn = findViewById(R.id.btn_return);
-
         ArrayList<Produkt> list = new ArrayList<Produkt>();
-        /*list.add(new Produkt(1,"Coca Cola", 2.50, typ.GETRAENK));
-        list.add(new Produkt(2,"Cola Zero", 2.50, typ.GETRAENK));
-        list.add(new Produkt(3,"Red Bull Energy", 3.90, typ.GETRAENK));
-        list.add(new Produkt(4,"Latte Macchiato", 3.20, typ.GETRAENK));
-        list.add(new Produkt(5,"Tee", 2.20, typ.GETRAENK));*/
+
         try{
         list = db.getAllGetraenke();
         System.out.println(list.get(0));
@@ -72,6 +67,7 @@ public class GetraenkeActivity extends AppCompatActivity {
             System.out.println("-----------------------------------error in GETAllGetraenke from db");
             ex.printStackTrace();
         }
+
         ArrayAdapter<Produkt> arrayAdapter = new ArrayAdapter<Produkt>(this,android.R.layout.simple_list_item_1,list);
         lv_Getraenke.setAdapter(arrayAdapter);
 
@@ -85,7 +81,7 @@ public class GetraenkeActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         Warenkorb.warenkorb.add((Produkt) lv_Getraenke.getItemAtPosition(position));
                         dialog.cancel();
-                        makeText(GetraenkeActivity.this, "Added to Cart", LENGTH_SHORT).show();
+                        makeText(GetraenkeActivity.this, "Zu Warenkorb hinzugefügt", LENGTH_SHORT).show();
                     }
                 }).setNegativeButton("Nein", new DialogInterface.OnClickListener() {
                     @Override

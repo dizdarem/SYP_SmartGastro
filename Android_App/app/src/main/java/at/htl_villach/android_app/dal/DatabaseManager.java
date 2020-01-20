@@ -9,15 +9,15 @@ import java.util.ArrayList;
 
 import at.htl_villach.android_app.bll.Bestellung;
 import at.htl_villach.android_app.bll.Produkt;
-import at.htl_villach.android_app.bll.typ;
 import at.htl_villach.android_app.services.ServiceBestellungPost;
 import at.htl_villach.android_app.services.ServiceProduktGetBeilagen;
 import at.htl_villach.android_app.services.ServiceProduktGetDesserts;
+import at.htl_villach.android_app.services.ServiceProduktGetGetraenke;
 import at.htl_villach.android_app.services.ServiceProduktGetSpeisen;
 
 public class DatabaseManager {
     private static DatabaseManager db = null;
-    private static String ipHost = "http://192.168.196.36:8080";
+    private static String ipHost = "http://192.168.196.232:8080";
 
     private DatabaseManager() {
     }
@@ -39,10 +39,10 @@ public class DatabaseManager {
 
     public ArrayList<Produkt> getAllGetraenke() throws Exception {
         Gson gson = new Gson();
-        ArrayList<Produkt> list = new ArrayList<>();
+        ArrayList<Produkt> result;
 
         //each call needs an new instance of async !!
-        /*ServiceProduktGetGetraenke controller = new ServiceProduktGetGetraenke();
+        ServiceProduktGetGetraenke controller = new ServiceProduktGetGetraenke();
         ServiceProduktGetGetraenke.setIpHost(ipHost);
 
         controller.execute();
@@ -52,13 +52,8 @@ public class DatabaseManager {
             result = gson.fromJson(strFromWebService,colltype);
         } catch (Exception ex) {
             throw new Exception(strFromWebService);
-        }*/
-        list.add(new Produkt(1,"Coca Cola", 2.50, typ.GETRAENK));
-        list.add(new Produkt(2,"Cola Zero", 2.50, typ.GETRAENK));
-        list.add(new Produkt(3,"Red Bull Energy", 3.90, typ.GETRAENK));
-        list.add(new Produkt(4,"Latte Macchiato", 3.20, typ.GETRAENK));
-        list.add(new Produkt(5,"Tee", 2.20, typ.GETRAENK));
-        return list;
+        }
+        return result;
     }
 
     public ArrayList<Produkt> getAllBeilagen() throws Exception {
@@ -140,8 +135,6 @@ public class DatabaseManager {
 
         return result;
     }
-
-
 
     public String addBestellung(Bestellung bestellung) throws Exception {
         Gson gson = new Gson();

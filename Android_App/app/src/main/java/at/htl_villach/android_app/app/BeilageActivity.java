@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import androidx.appcompat.app.AppCompatActivity;
 import at.htl_villach.android_app.R;
 import at.htl_villach.android_app.bll.Produkt;
+import at.htl_villach.android_app.bll.Warenkorb;
 import at.htl_villach.android_app.dal.DatabaseManager;
 
 import static android.widget.Toast.LENGTH_SHORT;
@@ -53,13 +54,13 @@ public class BeilageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_beilagen);
 
-        ListView lv_Speisen = findViewById(R.id.lv_beilagen);
+        final ListView lv_Beilagen = findViewById(R.id.lv_beilagen);
         DatabaseManager db = DatabaseManager.newInstance();
         Button btnreturn = findViewById(R.id.btn_return);
 
         ArrayList<Produkt> list = new ArrayList<Produkt>();
         try{
-        list = db.getAllGetraenke();
+        list = db.getAllBeilagen();
         System.out.println(list.get(0));
         }
         catch (Exception ex){
@@ -67,19 +68,20 @@ public class BeilageActivity extends AppCompatActivity {
             ex.printStackTrace();
         }
         ArrayAdapter<Produkt> arrayAdapter = new ArrayAdapter<Produkt>(this,android.R.layout.simple_list_item_1,list);
-        lv_Speisen.setAdapter(arrayAdapter);
+        lv_Beilagen.setAdapter(arrayAdapter);
 
-        lv_Speisen.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        lv_Beilagen.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
                 AlertDialog.Builder dialogbuilder = new AlertDialog.Builder(BeilageActivity.this);
                 dialogbuilder.setTitle("Zum Warenkorb hinzufügen?");
                 dialogbuilder.setPositiveButton("Ja", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        Warenkorb.warenkorb.add((Produkt) lv_Beilagen.getItemAtPosition(position));
                         dialog.cancel();
+                        makeText(BeilageActivity.this, "Zu Warenkorb hinzugefügt", LENGTH_SHORT).show();
 
-                        makeText(BeilageActivity.this, "Added to Cart", LENGTH_SHORT).show();
                     }
                 }).setNegativeButton("Nein", new DialogInterface.OnClickListener() {
                     @Override
