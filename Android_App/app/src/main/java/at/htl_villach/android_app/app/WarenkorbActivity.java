@@ -4,7 +4,6 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -12,8 +11,10 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Spinner;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 import androidx.appcompat.app.AppCompatActivity;
 import at.htl_villach.android_app.R;
@@ -32,7 +33,7 @@ public class WarenkorbActivity extends AppCompatActivity {
     Button btnreturn;
     Button btnAbschicken;
     Spinner spinner_tisch;
-    int currentTisch;
+    Spinner spinner_tablet;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,17 +45,36 @@ public class WarenkorbActivity extends AppCompatActivity {
         btnreturn = findViewById(R.id.btn_return);
         btnAbschicken = findViewById(R.id.btn_confirmCart);
         spinner_tisch = findViewById(R.id.spinner_tisch);
-        currentTisch = 0;
+        spinner_tablet = findViewById(R.id.spinner_tablet);
 
-        ArrayList<Integer> list = new ArrayList<Integer>();
-        list.add(1);
-        list.add(2);
-        list.add(3);
+        // TISCH
+        ArrayList<Integer> listTisch = null;
+        try {
+            listTisch = db.getTische();
+        } catch(Exception ex){
+            ex.printStackTrace();
+        }
         ArrayAdapter<Integer> dataAdapter = new ArrayAdapter<Integer>(this,
-                android.R.layout.simple_spinner_item, list);
+                android.R.layout.simple_spinner_item, listTisch);
+
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner_tisch.setAdapter(dataAdapter);
 
+
+        // TABLET
+        ArrayList<Integer> listTablet = null;
+        try {
+            listTablet = db.getTablets();
+        } catch(Exception ex){
+            ex.printStackTrace();
+        }
+        ArrayAdapter<Integer> dataAdapterTablet = new ArrayAdapter<Integer>(this,
+                android.R.layout.simple_spinner_item, listTablet);
+        dataAdapterTablet.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner_tablet.setAdapter(dataAdapterTablet);
+
+
+        // adapter für Listview
         final ArrayAdapter<Produkt> arrayAdapter = new ArrayAdapter<Produkt>(this, android.R.layout.simple_list_item_1, Warenkorb.warenkorb);
         lv_Warenkorb.setAdapter(arrayAdapter);
 
@@ -90,20 +110,45 @@ public class WarenkorbActivity extends AppCompatActivity {
             }
         });
         btnAbschicken.setOnClickListener(new View.OnClickListener() {
-            int id;
+            int idTisch, idTablet;
             @Override
             public void onClick(View v) {
-                    String subscriberId = Settings.Secure.getString(getContentResolver(),
-                            Settings.Secure.ANDROID_ID);
-                makeText(WarenkorbActivity.this, id, LENGTH_SHORT).show();
-                Bestellung bestellung = new Bestellung(0, Calendar.getInstance().getTime(),0,153,0,false);
-                try {
-                    db.addBestellung(bestellung);
-                } catch (Exception e) {
-                    e.printStackTrace();
+                if (Warenkorb.warenkorb.isEmpty()) {
+                    AlertDialog.Builder dialogbuilder = new AlertDialog.Builder(WarenkorbActivity.this);
+                    dialogbuilder.setTitle("Warenkorb ist leer!");
+                    dialogbuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                            Intent return2Home = new Intent(WarenkorbActivity.this, MainActivity.class);
+                            startActivity(return2Home);
+
+                        }
+                    }).setNegativeButton("", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                        }
+                    });
+                    AlertDialog alertDialog = dialogbuilder.create();
+                    alertDialog.show();
+                } else {
+                    idTisch = (int) spinner_tisch.getSelectedItem();
+                    idTablet = (int) spinner_tablet.getSelectedItem();
+
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss", Locale.getDefault());
+                    String date = sdf.format(new Date());
+                    Bestellung bestellung = new Bestellung(0, date, idTisch, idTablet, 0, false, Warenkorb.warenkorb);
+                    try {
+                        db.addBestellung(bestellung);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                    Warenkorb.warenkorb = new ArrayList<>();
+                    Intent return2Home = new Intent(WarenkorbActivity.this, MainActivity.class);
+                    startActivity(return2Home);
                 }
-                Intent return2Home = new Intent(WarenkorbActivity.this, MainActivity.class);
-                startActivity(return2Home);
             }
         });
     }

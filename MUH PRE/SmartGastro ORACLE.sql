@@ -10,7 +10,7 @@ CONSTRAINT pkTisch PRIMARY KEY(id)
 );
 
 create table tablet(
-id VARCHAR2(50),
+id INTEGER,
 CONSTRAINT pkTablet PRIMARY KEY(id)
 );
 
@@ -26,7 +26,7 @@ create table bestellung(
 id INTEGER,
 zeitstempel DATE,
 idTisch INTEGER,
-idTablet varchar2(100),
+idTablet INTEGER,
 gesamtpreis float,
 bezahlt varchar2(5),
 CONSTRAINT pkBestellung PRIMARY KEY(id),
@@ -58,6 +58,17 @@ insert into tisch VALUES (7);
 insert into tisch VALUES (8);
 insert into tisch VALUES (9);
 insert into tisch VALUES (10);
+
+insert into tablet VALUES (1);
+insert into tablet VALUES (2);
+insert into tablet VALUES (3);
+insert into tablet VALUES (4);
+insert into tablet VALUES (5);
+insert into tablet VALUES (6);
+insert into tablet VALUES (7);
+insert into tablet VALUES (8);
+insert into tablet VALUES (9);
+insert into tablet VALUES (10);
 
 insert into produkt VALUES (1,'Coca-Cola 0.33 l', 2.80,'getraenk');
 insert into produkt VALUES (2,'Fanta 0.33 l', 2.80,'getraenk');
@@ -103,15 +114,15 @@ insert into produkt VALUES(36,'Pudding',2.90,'dessert');
 insert into produkt VALUES(37,'Palatschinken',5.90,'dessert');
 
 
-insert into bestellung VALUES(1,TO_DATE('26.10.2019 18:42','dd.mm.yyyy hh24.mi'),1,'sdfdat54345',0,'false'); /*tisch 1 tablet 1*/
-insert into bestellung VALUES(2,TO_DATE('26.10.2019 18:40','dd.mm.yyyy hh24.mi'),1,'sdfasdfa4',0,'false');
-insert into bestellung VALUES(3,TO_DATE('26.10.2019 18:41','dd.mm.yyyy hh24.mi'),1,'23345tasf',0,'false');
-insert into bestellung VALUES(4,TO_DATE('26.10.2019 18:40','dd.mm.yyyy hh24.mi'),1,'3afs453545f',0,'false');
+insert into bestellung VALUES(1,TO_DATE('26.10.2019 18:42','dd.mm.yyyy hh24.mi'),1,1,0,'false'); /*tisch 1 tablet 1*/
+insert into bestellung VALUES(2,TO_DATE('26.10.2019 18:40','dd.mm.yyyy hh24.mi'),1,1,0,'false');
+insert into bestellung VALUES(3,TO_DATE('26.10.2019 18:41','dd.mm.yyyy hh24.mi'),1,2,0,'false');
+insert into bestellung VALUES(4,TO_DATE('26.10.2019 18:40','dd.mm.yyyy hh24.mi'),1,2,0,'false');
 
-insert into bestellung VALUES(5,TO_DATE('26.10.2019 18:42','dd.mm.yyyy hh24.mi'),3,'dfz56',0,'false'); /*tisch 1 tablet 1*/
-insert into bestellung VALUES(6,TO_DATE('26.10.2019 18:40','dd.mm.yyyy hh24.mi'),3,'5636tsfgs',0,'false');
-insert into bestellung VALUES(7,TO_DATE('26.10.2019 18:41','dd.mm.yyyy hh24.mi'),3,'shsfdsr3q5wgs',0,'false');
-insert into bestellung VALUES(8,TO_DATE('26.10.2019 18:40','dd.mm.yyyy hh24.mi'),3,'we5345sdfhs5',0,'false');
+insert into bestellung VALUES(5,TO_DATE('26.10.2019 18:42','dd.mm.yyyy hh24.mi'),3,3,0,'false'); /*tisch 1 tablet 1*/
+insert into bestellung VALUES(6,TO_DATE('26.10.2019 18:40','dd.mm.yyyy hh24.mi'),3,3,0,'false');
+insert into bestellung VALUES(7,TO_DATE('26.10.2019 18:41','dd.mm.yyyy hh24.mi'),3,4,0,'false');
+insert into bestellung VALUES(8,TO_DATE('26.10.2019 18:40','dd.mm.yyyy hh24.mi'),3,4,0,'false');
 
 insert into besteht_aus VALUES(1,1,1,'false');
 insert into besteht_aus VALUES(1,2,18,'false');
@@ -143,8 +154,6 @@ insert into besteht_aus VALUES(8,1,11,'false');
 insert into besteht_aus VALUES(8,2,18,'false');
 insert into besteht_aus VALUES(8,3,37,'false');
 
-
-
 commit;
 
 select idTisch,idTablet,to_char(zeitstempel,'dd.mm.yyyy hh24.mi'),bezeichnung,preis,typ from besteht_aus
@@ -160,6 +169,12 @@ where produkt.typ = 'getraenk' and bestellung.gebracht = 'false'
 order by idTablet;
 
 select * from bestellung
-where idTablet = 3 and bestellung.bezahlt = 'false';
+where idTablet = 1;
+
+select sum(preis) from produkt inner join besteht_aus on produkt.id = besteht_aus.idprodukt
+where besteht_aus.idbestellung = 2;
 
 
+UPDATE bestellung SET bezahlt = 'false', gesamtpreis = 0 where id = 1;
+
+commit;

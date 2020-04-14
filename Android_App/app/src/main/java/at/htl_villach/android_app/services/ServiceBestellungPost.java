@@ -10,8 +10,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.ProtocolException;
 
 import at.htl_villach.android_app.bll.Bestellung;
 
@@ -40,17 +38,20 @@ public class ServiceBestellungPost extends AsyncTask<String, Void, String> {
         String content = null;
         Gson gson = new Gson();
 
+       // url = new URL(this.ipHost + URL + "/" + )
         try {
-            url = new java.net.URL(this.ipHost + URL + "/" + id);
+            url = new java.net.URL(this.ipHost + URL);
             // Öffnen der Connection
             conn = (HttpURLConnection)url.openConnection();
-            conn.setRequestMethod("POST");
+            conn.setDoOutput(true);
+
             // setzen des Content-Types auf das JSON Format
             conn.setRequestProperty("Content-Type", "application/json");
             writer = new BufferedWriter( new OutputStreamWriter(( conn.getOutputStream())));
             writer.write(gson.toJson(bestellung));
             writer.flush();
             writer.close();
+            System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++ post bestellung webservice");
 
             // Überprüfen, ob ein Fehler aufgetreten ist, lesen der Fehlermeldung
             if( conn.getResponseCode() != 200){
@@ -65,20 +66,15 @@ public class ServiceBestellungPost extends AsyncTask<String, Void, String> {
             else{
                 content = "ResponseCode: "+conn.getResponseCode();
             }
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (ProtocolException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (Exception e) {
+        }
+         catch (Exception e) {
+            e.getMessage();
             e.printStackTrace();
         }
         finally {
             try{
                 if( reader != null){
                     reader.close();
-
                 }
                 writer.close();
                 conn.disconnect();
@@ -87,6 +83,6 @@ public class ServiceBestellungPost extends AsyncTask<String, Void, String> {
             }
         }
         return content;
+        }
 
     }
-}

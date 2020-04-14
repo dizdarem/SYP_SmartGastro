@@ -1,25 +1,24 @@
 package at.htl_villach.android_app.bll;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 public class Bestellung {
     private int id;
-    private Date zeitstempel;
+    private String zeitstempel;
     private int idTisch;
     private int idTablet;
     private double gesamtpreis;
     private boolean bezahlt;
     private ArrayList<Produkt> produkte;
 
-    public Bestellung(int id, Date zeitstempel, int idTisch, int idTablet, double gesamtpreis, boolean bezahlt) {
+    public Bestellung(int id, String zeitstempel, int idTisch, int idTablet, double gesamtpreis, boolean bezahlt, ArrayList<Produkt> produkte) {
         this.id = id;
         this.zeitstempel = zeitstempel;
         this.idTisch = idTisch;
         this.idTablet = idTablet;
         this.gesamtpreis = gesamtpreis;
         this.bezahlt = bezahlt;
-        produkte = new ArrayList<Produkt>();
+        this.produkte = produkte;
     }
 
     public int getId() {
@@ -30,11 +29,11 @@ public class Bestellung {
         this.id = id;
     }
 
-    public Date getZeitstempel() {
+    public String getZeitstempel() {
         return zeitstempel;
     }
 
-    public void setZeitstempel(Date zeitstempel) {
+    public void setZeitstempel(String zeitstempel) {
         this.zeitstempel = zeitstempel;
     }
 
@@ -68,5 +67,18 @@ public class Bestellung {
 
     public void setBezahlt(boolean bezahlt) {
         this.bezahlt = bezahlt;
+    }
+
+    @Override
+    public String toString() {
+        return "Bestellung{" +
+                "id=" + id +
+                ", zeitstempel=" + zeitstempel +
+                ", idTisch=" + idTisch +
+                ", idTablet=" + idTablet +
+                ", gesamtpreis=" + gesamtpreis +
+                ", bezahlt=" + bezahlt +
+                ", produkte=" + produkte +
+                '}';
     }
 }

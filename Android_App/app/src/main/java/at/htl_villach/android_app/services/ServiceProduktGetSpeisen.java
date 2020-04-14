@@ -16,7 +16,7 @@ public class ServiceProduktGetSpeisen extends AsyncTask<String, Void, String> {
     }
 
     @Override
-    protected String doInBackground(String... artikelinfo) {
+    protected String doInBackground(String... bestellinfo) {
         boolean isError = false;
         java.net.URL url = null;
         HttpURLConnection conn = null;
