@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "574465736380",
+    "firebase_url": "https://feedback-smartgastro.firebaseio.com",
+    "project_id": "feedback-smartgastro",
+    "storage_bucket": "feedback-smartgastro.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:574465736380:android:d303f7c402d58a4cae5ab9",
+        "android_client_info": {
+          "package_name": "at.htl_villach.feedbackapp_with_firebase"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "574465736380-7vg53kb4a1k0as94c6clba7h3ntcsss9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD3zZhnLlg3JaMFWBu_jrIYXtzOtPaXpsc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "574465736380-7vg53kb4a1k0as94c6clba7h3ntcsss9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
