@@ -153,28 +153,4 @@ insert into besteht_aus VALUES(7,3,28,'false');
 insert into besteht_aus VALUES(8,1,11,'false');
 insert into besteht_aus VALUES(8,2,18,'false');
 insert into besteht_aus VALUES(8,3,37,'false');
-
-commit;
-
-select idTisch,idTablet,to_char(zeitstempel,'dd.mm.yyyy hh24.mi'),bezeichnung,preis,typ from besteht_aus
-inner join bestellung on besteht_aus.idBestellung = bestellung.id
-inner join produkt on besteht_aus.idProdukt = produkt.id
-where (produkt.typ = 'gericht' or produkt.typ = 'beilage' or produkt.typ = 'dessert') and bestellung.bezahlt = 'false'
-order by idTablet;
-
-select idTisch,idTablet,to_char(zeitstempel,'dd.mm.yyyy hh24.mi'),bezeichnung,preis,typ from besteht_aus
-inner join bestellung on besteht_aus.idBestellung = bestellung.id
-inner join produkt on besteht_aus.idProdukt = produkt.id
-where produkt.typ = 'getraenk' and bestellung.gebracht = 'false'
-order by idTablet;
-
-select * from bestellung
-where idTablet = 1;
-
-select sum(preis) from produkt inner join besteht_aus on produkt.id = besteht_aus.idprodukt
-where besteht_aus.idbestellung = 2;
-
-
-UPDATE bestellung SET bezahlt = 'false', gesamtpreis = 0 where id = 1;
-
 commit;

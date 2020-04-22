@@ -19,7 +19,7 @@ import at.htl_villach.android_app.services.ServiceTisch;
 
 public class DatabaseManager {
     private static DatabaseManager db = null;
-    private static String ipHost = "http://192.168.192.27:8080";
+    private static String ipHost = "http://178.188.6.194:2432";
 
     private DatabaseManager() {
     }
